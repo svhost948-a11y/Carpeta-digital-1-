@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carpeta Digital - Benjamin Mollier</title>
+    <style>
+        /* Importar fuente moderna */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #00c6ff, #0072ff, #2af598, #009efd);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #2d3436;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- SECCIÓN 1: PORTADA --- */
+        .full-page-portada {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-portada {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 700px;
+            width: 90%;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .materia-tag {
+            background: #0072ff;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .carpeta-digital-text {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 10px 0;
+            background: linear-gradient(to right, #0072ff, #2af598);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: left;
+            border-top: 1px solid #ddd;
+            padding-top: 30px;
+            margin-top: 30px;
+        }
+
+        .info-item b {
+            display: block;
+            color: #0072ff;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .info-item p {
+            font-size: 1.1rem;
+            margin: 5px 0;
+            font-weight: 600;
+        }
+
+        .scroll-indicator {
+            margin-top: 30px;
+            color: #0072ff;
+            font-weight: bold;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* --- SECCIÓN 2: PANEL DE CONTROL --- */
+        .container-panel {
+            max-width: 1000px;
+            margin: 0 auto 100px auto;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+
+        .header-panel { text-align: center; margin-bottom: 40px; }
+        .header-panel h1 { color: #0072ff; text-transform: uppercase; font-size: 2.5rem; }
+
+        .presentacion-avatar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 8px solid #0072ff;
+        }
+
+        /* ESTILO DEL VIDEO */
+        .video-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: #000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .secciones-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .seccion-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+            border-bottom: 5px solid #2af598;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .seccion-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); border-bottom-color: #0072ff; }
+        .seccion-card h3 { margin: 10px 0; color: #0072ff; font-size: 1.3rem; }
+
+        @media (max-width: 600px) {
+            .info-grid { grid-template-columns: 1fr; }
+            .presentacion-avatar { flex-direction: column; text-align: center; }
+            .carpeta-digital-text { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="full-page-portada">
+        <div class="card-portada">
+            <span class="materia-tag">Laboratorio de Aplicaciones</span>
+            <h1 class="carpeta-digital-text">Carpeta<br>Digital</h1>
+            
+            <div class="info-grid">
+                <div class="info-item">
+                    <b>Alumno</b>
+                    <p>Benjamin Mollier</p>
+                </div>
+                <div class="info-item">
+                    <b>Curso</b>
+                    <p>5°I</p>
+                </div>
+                <div class="info-item" style="grid-column: span 2; text-align: center;">
+                    <b>Profesoras</b>
+                    <p>Lorena G. & Raymundo E.</p>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <p>Deslizá para ver el contenido</p>
+                <span>▼</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-panel">
+        <div class="header-panel">
+            <h1>Panel de Control</h1>
+            <p>Acceso rápido a todas las secciones de la materia</p>
+        </div>
+
+        <div class="presentacion-avatar">
+            <div class="video-container">
+                <video controls>
+                    <source src="presentacion.mp4" type="video/mp4">
+                    Tu navegador no soporta el video.
+                </video>
+            </div>
+            <div>
+                <h3>¡Hola! Soy Benjamin</h3>
+                <p>Bienvenido a mi carpeta digital. En este video te cuento un poco sobre mis expectativas para este año en la materia.</p>
+            </div>
+        </div>
+
+        <div class="secciones-grid">
+            <a href="tp2.html" class="seccion-card">
+                <h3>Resumen de Clases</h3>
+                <p>Bitácora de lo aprendido día a día.</p>
+            </a>
+
+            <a href="tp1.html" class="seccion-card">
+                <h3>Lista de Apps</h3>
+                <p>Herramientas y links útiles.</p>
+            </a>
+
+            <a href="tp5.html" class="seccion-card">
+                <h3>Trabajos Prácticos</h3>
+                <p>Actividades y entregas realizadas.</p>
+            </a>
+
+            <a href="tp3.html" class="seccion-card">
+                <h3>Glosario</h3>
+                <p>Términos técnicos explicados.</p>
+            </a>
+
+            <a href="tp4.html" class="seccion-card" style="border-bottom-color: #ff6b6b;">
+                <h3>Reflexión Final</h3>
+                <p>Balance del ciclo lectivo 2026.</p>
+            </a>
+        </div>
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabajos Prácticos - Benjamin Mollier</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .btn-back {
+            text-decoration: none;
+            color: #0072ff;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #0072ff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .grid-trabajos {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        /* Tarjeta en estado de espera */
+        .tp-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px dashed #ccc;
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .tp-header {
+            background: #e9ecef;
+            color: #adb5bd;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .tp-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .tp-body {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: #f8f9fa;
+            color: #999;
+        }
+
+        .btn-abrir {
+            display: block;
+            text-align: center;
+            background: #dee2e6;
+            color: #adb5bd;
+            padding: 12px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="indice.html" class="btn-back">← Volver al Panel</a>
+        
+        <h1>Mis Trabajos Prácticos</h1>
+
+        <div class="grid-trabajos">
+            
+            <div class="tp-card">
+                <div class="tp-header">
+                    <h2>TP #1</h2>
+                </div>
+                <div class="tp-body">
+                    <span class="status-badge">PRÓXIMAMENTE</span>
+                    <h3>Sin asignar</h3>
+                    <p>El contenido de este trabajo se cargará cuando se asigne la primera tarea.</p>
+                    <a href="#" class="btn-abrir">No disponible</a>
+                </div>
+            </div>
+
+            <div class="tp-card">
+                <div class="tp-header">
+                    <h2>TP #2</h2>
+                </div>
+                <div class="tp-body">
+                    <span class="status-badge">PRÓXIMAMENTE</span>
+                    <h3>Sin asignar</h3>
+                    <p>Contenido pendiente de asignación en Laboratorio de Aplicaciones.</p>
+                    <a href="#" class="btn-abrir">No disponible</a>
+                </div>
+            </div>
+
+            <div class="tp-card">
+                <div class="tp-header">
+                    <h2>TP #3</h2>
+                </div>
+                <div class="tp-body">
+                    <span class="status-badge">PRÓXIMAMENTE</span>
+                    <h3>Sin asignar</h3>
+                    <p>Contenido pendiente de asignación en Laboratorio de Aplicaciones.</p>
+                    <a href="#" class="btn-abrir">No disponible</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
