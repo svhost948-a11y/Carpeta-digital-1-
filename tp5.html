@@ -48,11 +48,23 @@
             transition: 0.3s;
         }
 
+        /* Estilo para tarjeta ASIGNADA/ACTIVA */
+        .tp-card.active {
+            border: 1px solid #eee;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
         .tp-header {
             background: #e9ecef;
             color: #adb5bd;
             padding: 30px;
             text-align: center;
+        }
+
+        /* Header activo */
+        .tp-card.active .tp-header {
+            background: #0072ff;
+            color: white;
         }
 
         .tp-header h2 {
@@ -77,6 +89,12 @@
             color: #999;
         }
 
+        /* Badge activo */
+        .tp-card.active .status-badge {
+            background: #e7f3ff;
+            color: #0072ff;
+        }
+
         .btn-abrir {
             display: block;
             text-align: center;
@@ -87,6 +105,19 @@
             border-radius: 10px;
             font-weight: bold;
             cursor: not-allowed;
+            transition: 0.3s;
+        }
+
+        /* Botón activo */
+        .tp-card.active .btn-abrir {
+            background: #0072ff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .tp-card.active .btn-abrir:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
         }
     </style>
 </head>
@@ -99,15 +130,15 @@
 
         <div class="grid-trabajos">
             
-            <div class="tp-card">
+            <div class="tp-card active">
                 <div class="tp-header">
                     <h2>TP #1</h2>
                 </div>
                 <div class="tp-body">
-                    <span class="status-badge">Realizado</span>
-                    <h3>Subido</h3>
-                    <p>El contenido de este trabajo se cargará cuando se asigne la primera tarea.</p>
-                    <a href="https://docs.google.com/spreadsheets/d/1OgXtFX9S8zRA1sa4oZaI86J04rsUKdZocTMZr7QfA3s/edit?gid=0#gid=0" class="btn-abrir">Tabla</a>
+                    <span class="status-badge">ENTREGADO</span>
+                    <h3>Planilla de Seguimiento</h3>
+                    <p>Accede a la tabla de contenidos y seguimiento de actividades del primer trimestre.</p>
+                    <a href="https://docs.google.com/spreadsheets/d/1OgXtFX9S8zRA1sa4oZaI86J04rsUKdZocTMZr7QfA3s/edit?gid=0#gid=0" class="btn-abrir">Ver Contenido</a>
                 </div>
             </div>
 
