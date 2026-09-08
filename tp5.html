@@ -76,6 +76,9 @@
             padding: 20px;
             text-align: center;
             flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .status-badge {
@@ -87,6 +90,7 @@
             margin-bottom: 10px;
             background: #f8f9fa;
             color: #999;
+            align-self: center;
         }
 
         /* Badge activo */
@@ -106,6 +110,7 @@
             font-weight: bold;
             cursor: not-allowed;
             transition: 0.3s;
+            margin-top: 15px;
         }
 
         /* Botón activo */
@@ -130,53 +135,78 @@
 
         <div class="grid-trabajos">
             
+            <!-- TP 1A -->
             <div class="tp-card active">
                 <div class="tp-header">
-                    <h2>TP #1</h2>
+                    <h2>TP #1A</h2>
                 </div>
                 <div class="tp-body">
-                    <span class="status-badge">ENTREGADO</span>
-                    <h3>Hoja de calculo clima.</h3>
-                    <p>Accede a la tabla de contenidos y seguimiento de actividades del primer trimestre.</p>
-                    <a href="https://docs.google.com/spreadsheets/d/1OgXtFX9S8zRA1sa4oZaI86J04rsUKdZocTMZr7QfA3s/edit?gid=0#gid=0" class="btn-abrir">Ver Contenido</a>
+                    <div>
+                        <span class="status-badge">ENTREGADO</span>
+                        <h3>Hoja de Cálculo Clima</h3>
+                        <p>Accede a la tabla de contenidos y seguimiento de actividades del primer trimestre.</p>
+                    </div>
+                    <a href="https://docs.google.com/spreadsheets/d/1OgXtFX9S8zRA1sa4oZaI86J04rsUKdZocTMZr7QfA3s/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="btn-abrir">Ver Contenido</a>
                 </div>
             </div>
             
+            <!-- TP 1B -->
             <div class="tp-card active">
                 <div class="tp-header">
-                    <h2>TP #1</h2>
+                    <h2>TP #1B</h2>
                 </div>
                 <div class="tp-body">
-                    <span class="status-badge">ENTREGADO</span>
-                    <h3>Exposicion Clima.</h3>
-                    <p>Accede al canva donde esta la presentacion.</p>
-                    <a href="https://www.canva.com/design/DAHHZwJQPrg/sRh60vhPp-kWeJj4zSWjVw/edit">Ver Contenido</a>
+                    <div>
+                        <span class="status-badge">ENTREGADO</span>
+                        <h3>Exposición Clima</h3>
+                        <p>Accede a la presentación en Canva.</p>
+                    </div>
+                    <a href="https://www.canva.com/design/DAHHZwJQPrg/sRh60vhPp-kWeJj4zSWjVw/edit" target="_blank" rel="noopener noreferrer" class="btn-abrir">Ver Contenido</a>
                 </div>
             </div>
             
-            
+            <!-- TP 2 -->
             <div class="tp-card active">
                 <div class="tp-header">
                     <h2>TP #2</h2>
                 </div>
                 <div class="tp-body">
-                    <span class="status-badge">ENTREGADO</span>
-                    <h3>Agrotech.</h3>
-                    <p>Documento de google.</p>
-                    <a href= "https://docs.google.com/document/d/1bTyT88LzgJ8Fn6Nbfcz2bHccVPk2djR4Z_WpJO-dCxM/edit?usp=sharing">Ver Contenido</a>
+                    <div>
+                        <span class="status-badge">ENTREGADO</span>
+                        <h3>Agrotech</h3>
+                        <p>Documento de Google Docs.</p>
+                    </div>
+                    <a href="https://docs.google.com/document/d/1bTyT88LzgJ8Fn6Nbfcz2bHccVPk2djR4Z_WpJO-dCxM/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-abrir">Ver Contenido</a>
                 </div>
             </div>
 
-
+            <!-- TP 3 -->
             <div class="tp-card active">
                 <div class="tp-header">
                     <h2>TP #3</h2>    
                 </div>
                 <div class="tp-body">
-                    <span class="status-badge">ENTREGADO</span>
-                    <h3>Podcast</h3>
-                    <p>Documento de google.</p>
-                    <a href= "https://docs.google.com/document/d/1nYAbNVCZu8YfVC2LBYfh7TI5u2oFl3zKAgkqdNo0Zvw/edit?usp=sharing">Ver Contenido</a>
+                    <div>
+                        <span class="status-badge">ENTREGADO</span>
+                        <h3>Podcast</h3>
+                        <p>Documento de Google Docs.</p>
+                    </div>
+                    <a href="https://docs.google.com/document/d/1nYAbNVCZu8YfVC2LBYfh7TI5u2oFl3zKAgkqdNo0Zvw/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-abrir">Ver Contenido</a>
+                </div>
+            </div>
+
+            <!-- TP 4 (En espera) -->
+            <div class="tp-card">
+                <div class="tp-header">
+                    <h2>TP #4</h2>    
+                </div>
+                <div class="tp-body">
+                    <div>
+                        <span class="status-badge">PENDIENTE</span>
+                        <h3>Próxima Actividad</h3>
+                        <p>Aún no asignado.</p>
+                    </div>
+                    <span class="btn-abrir">No Disponible</span>
                 </div>
             </div>
             
