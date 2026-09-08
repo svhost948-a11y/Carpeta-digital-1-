@@ -4,305 +4,645 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Emociones en las clases - Benjamin Mollier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .btn-back { text-decoration: none; color: #0072ff; font-weight: bold; display: inline-block; margin-bottom: 20px; }
-        .card-clase { background: white; padding: 25px; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid #0072ff; }
-        .fecha { color: #777; font-size: 0.9rem; font-weight: bold; }
-        h1 { color: #0072ff; }
-        h2 { margin-top: 0; color: #333; }
-        .estado { display: inline-block; padding: 5px 10px; border-radius: 20px; font-size: 0.8rem; background: #e3f2fd; color: #0072ff; margin-bottom: 10px; }
+        :root {
+            --primary: #0072ff;
+            --bg: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-dark: #2c3e50;
+            --text-muted: #7f8c8d;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 20px; 
+            color: var(--text-dark);
+        }
+
+        .container { 
+            max-width: 800px; 
+            margin: 0 auto; 
+        }
+
+        .btn-back { 
+            text-decoration: none; 
+            color: var(--primary); 
+            font-weight: 600; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px;
+            margin-bottom: 20px; 
+            transition: transform 0.2s;
+        }
+
+        .btn-back:hover {
+            transform: translateX(-4px);
+        }
+
+        header {
+            margin-bottom: 25px;
+        }
+
+        h1 { 
+            color: var(--primary); 
+            margin: 0 0 10px 0;
+            font-size: 2rem;
+        }
+
+        /* Controls: Buscador y Filtros */
+        .controls {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .filter-btn {
+            border: none;
+            background: #eef2f7;
+            color: #555;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .stats {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Card Clase */
+        .card-clase { 
+            background: var(--card-bg); 
+            padding: 20px 25px; 
+            border-radius: 15px; 
+            margin-bottom: 15px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04); 
+            border-left: 5px solid var(--primary); 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card-clase:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .fecha { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            font-weight: 600; 
+        }
+
+        .estado { 
+            display: inline-block; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 0.8rem; 
+            font-weight: 600;
+            background: #e3f2fd; 
+            color: var(--primary); 
+        }
+
+        /* Colores dinámicos por estado */
+        .card-clase[data-estado*="Excelente"] .estado,
+        .card-clase[data-estado*="Muy buena"] .estado,
+        .card-clase[data-estado*="Muy Buena"] .estado { background: #e8f5e9; color: #2e7d32; }
+        
+        .card-clase[data-estado*="Buena"] .estado { background: #f1f8e9; color: #558b2f; }
+        
+        .card-clase[data-estado*="Normal"] .estado { background: #e3f2fd; color: #1565c0; }
+        
+        .card-clase[data-estado*="Mala"] .estado { background: #ffebee; color: #c62828; }
+        
+        .card-clase[data-estado*="Cansado"] .estado,
+        .card-clase[data-estado*="Nada"] .estado { background: #fff3e0; color: #ef6c00; }
+
+        .card-clase[data-estado*="Seleccion"] .estado { background: #e0f7fa; color: #00838f; }
+
+        h2 { 
+            margin: 0 0 5px 0; 
+            color: var(--text-dark); 
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin: 0;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <a href="indice.html" class="btn-back">← Volver al Índice</a>
-        <h1>Emociones en las clases</h1>
         
-        <div class="card-clase">
-            <span class="fecha">10/03</span>
-            <div class="estado">¡Excelente Clase!</div>
-            <h2>Clases</h2>
-            <p>Primera clase</p>
+        <header>
+            <h1>Emociones en las clases</h1>
+            <div class="stats" id="totalCount">Cargando clases...</div>
+        </header>
+
+        <!-- Filtros y Búsqueda -->
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Buscar por fecha o comentario (ej: divertido, cansado, 14/04)...">
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterClases('todos', this)">Todas</button>
+                <button class="filter-btn" onclick="filterClases('excelente', this)">Excelente / Muy Buena</button>
+                <button class="filter-btn" onclick="filterClases('buena', this)">Buena</button>
+                <button class="filter-btn" onclick="filterClases('normal', this)">Normal</button>
+                <button class="filter-btn" onclick="filterClases('mala', this)">Mala</button>
+            </div>
         </div>
 
-        
-       <div class="card-clase">
-            <span class="fecha">16/03</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Me re diverti.</p>
-        </div>
+        <!-- Lista de Clases -->
+        <div id="clasesList">
+            <div class="card-clase" data-estado="¡Excelente Clase!">
+                <div class="card-header">
+                    <span class="fecha">10/03</span>
+                    <div class="estado">¡Excelente Clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Primera clase</p>
+            </div>
 
-        
-         <div class="card-clase">
-            <span class="fecha">17/03</span>
-            <div class="estado">¡Excelente clase!</div>
-            <h2>Clases</h2>
-            <p>Cansado por trabajar.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">16/03</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Me re diverti.</p>
+            </div>
 
-        
-         <div class="card-clase">
-            <span class="fecha">23/03</span>
-            <div class="estado">¡Excelente clase!</div>
-            <h2>Clases</h2>
-            <p>No hubo clases.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Excelente clase!">
+                <div class="card-header">
+                    <span class="fecha">17/03</span>
+                    <div class="estado">¡Excelente clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Cansado por trabajar.</p>
+            </div>
 
-        
-        <div class="card-clase">
-            <span class="fecha">24/03</span>
-            <div class="estado">¡Mala Clase!</div>
-            <h2>Clases</h2>
-            <p>No hubo clases.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Excelente clase!">
+                <div class="card-header">
+                    <span class="fecha">23/03</span>
+                    <div class="estado">¡Excelente clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>No hubo clases.</p>
+            </div>
 
-        
-          <div class="card-clase">
-            <span class="fecha">30/03</span>
-            <div class="estado">¡Mala clase!</div>
-            <h2>Clases</h2>
-            <p>Aburrido.</p>
-        </div>
-        
+            <div class="card-clase" data-estado="¡Mala Clase!">
+                <div class="card-header">
+                    <span class="fecha">24/03</span>
+                    <div class="estado">¡Mala Clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>No hubo clases.</p>
+            </div>
 
-          <div class="card-clase">
-            <span class="fecha">31/03</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Clase tranquila.</p>
-        </div>
-        
-   
-          <div class="card-clase">
-            <span class="fecha">6/04</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
-          
-          <div class="card-clase">
-            <span class="fecha">7/04</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Cansado Mucho trabajo.</p>
-        </div>
-    
-    
-          <div class="card-clase">
-            <span class="fecha">13/04</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Cansado.</p>
-        </div>
-                
-    
-          <div class="card-clase">
-            <span class="fecha">14/04</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Sueño.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Mala clase!">
+                <div class="card-header">
+                    <span class="fecha">30/03</span>
+                    <div class="estado">¡Mala clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Aburrido.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">20/04</span>
-            <div class="estado">¡Mala clase!</div>
-            <h2>Clases</h2>
-            <p>aburrido.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">31/03</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Clase tranquila.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">21/04</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Nervios.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">06/04</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">27/04</span>
-            <div class="estado">¡Muy Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">07/04</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Cansado Mucho trabajo.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">28/04</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Sueño.</p>
-        </div>
-        
-                  <div class="card-clase">
-            <span class="fecha">11/05</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Divertido</p>
-        </div>
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">13/04</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Cansado.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">12/05</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">14/04</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Sueño.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">18/05</span>
-            <div class="estado">¡Mala clase!</div>
-            <h2>Clases</h2>
-            <p>Aburrido.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Mala clase!">
+                <div class="card-header">
+                    <span class="fecha">20/04</span>
+                    <div class="estado">¡Mala clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>aburrido.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">19/05</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
-        
-          <div class="card-clase">
-            <span class="fecha">25/05</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>No hubo clases</p>
-        </div>
-    
-    
-          <div class="card-clase">
-            <span class="fecha">26/05</span>
-            <div class="estado">¡Mala clase!</div>
-            <h2>Clases</h2>
-            <p>Cansado.</p>
-        </div>
-                
-    
-          <div class="card-clase">
-            <span class="fecha">1/06</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Me siento bien.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">21/04</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Nervios.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">2/06</span>
-            <div class="estado">¡Mala clase!</div>
-            <h2>Clases</h2>
-            <p>aburrido.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Muy Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">27/04</span>
+                    <div class="estado">¡Muy Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">8/06</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Nervios.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">28/04</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Sueño.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">9/06</span>
-            <div class="estado">¡Muy Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">11/05</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">15/06</span>
-            <div class="estado">¡Muy buena clase!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
-        
-                  <div class="card-clase">
-            <span class="fecha">16/06</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Cansado.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">12/05</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">22/06</span>
-            <div class="estado">¡La Seleccion!</div>
-            <h2>Clases</h2>
-            <p>Juego Argentina, Falte</p>
-        </div>
+            <div class="card-clase" data-estado="¡Mala clase!">
+                <div class="card-header">
+                    <span class="fecha">18/05</span>
+                    <div class="estado">¡Mala clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Aburrido.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">23/06</span>
-            <div class="estado">¡Cansado!</div>
-            <h2>Clases</h2>
-            <p>Aburrido.</p>
-        </div>
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">19/05</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
 
-                  <div class="card-clase">
-            <span class="fecha">29/06</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Divertido</p>
-        </div>
-                          <div class="card-clase">
-            <span class="fecha">06/07</span>
-            <div class="estado">¡Mala clase!</div>
-            <h2>Clases</h2>
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">25/05</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>No hubo clases</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Mala clase!">
+                <div class="card-header">
+                    <span class="fecha">26/05</span>
+                    <div class="estado">¡Mala clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Cansado.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">01/06</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Me siento bien.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Mala clase!">
+                <div class="card-header">
+                    <span class="fecha">02/06</span>
+                    <div class="estado">¡Mala clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>aburrido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">08/06</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Nervios.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Muy Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">09/06</span>
+                    <div class="estado">¡Muy Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Muy buena clase!">
+                <div class="card-header">
+                    <span class="fecha">15/06</span>
+                    <div class="estado">¡Muy buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">16/06</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Cansado.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡La Seleccion!">
+                <div class="card-header">
+                    <span class="fecha">22/06</span>
+                    <div class="estado">¡La Seleccion!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Juego Argentina, Falte</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Cansado!">
+                <div class="card-header">
+                    <span class="fecha">23/06</span>
+                    <div class="estado">¡Cansado!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Aburrido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">29/06</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Mala clase!">
+                <div class="card-header">
+                    <span class="fecha">06/07</span>
+                    <div class="estado">¡Mala clase!</div>
+                </div>
+                <h2>Clases</h2>
                 <p>sixseven</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">10/08</span>
+                    <div class="estado">¡Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>trabajo, cansado</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Muy Buena clase!">
+                <div class="card-header">
+                    <span class="fecha">11/08</span>
+                    <div class="estado">¡Muy Buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Muy buena clase!">
+                <div class="card-header">
+                    <span class="fecha">18/08</span>
+                    <div class="estado">¡Muy buena clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Divertido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">24/08</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Cansado.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Mala clase!">
+                <div class="card-header">
+                    <span class="fecha">25/08</span>
+                    <div class="estado">¡Mala clase!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Tranqui</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Nada!">
+                <div class="card-header">
+                    <span class="fecha">31/08</span>
+                    <div class="estado">¡Nada!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Aburrido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Normal!">
+                <div class="card-header">
+                    <span class="fecha">01/09</span>
+                    <div class="estado">¡Normal!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Aburrido.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Buena!">
+                <div class="card-header">
+                    <span class="fecha">07/09</span>
+                    <div class="estado">¡Buena!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Tranquilo.</p>
+            </div>
+
+            <div class="card-clase" data-estado="¡Buena!">
+                <div class="card-header">
+                    <span class="fecha">08/09</span>
+                    <div class="estado">¡Buena!</div>
+                </div>
+                <h2>Clases</h2>
+                <p>Trabajamos.</p>
+            </div>
         </div>
 
-                  <div class="card-clase">
-            <span class="fecha">10/08</span>
-            <div class="estado">¡Buena clase!</div>
-            <h2>Clases</h2>
-            <p>trabajo, cansado</p>
+        <div class="no-results" id="noResults">
+            No se encontraron clases que coincidan con los criterios.
         </div>
-
-                  <div class="card-clase">
-            <span class="fecha">11/08</span>
-            <div class="estado">¡Muy Buena clase!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
-
-                  <div class="card-clase">
-            <span class="fecha">18/08</span>
-            <div class="estado">¡Muy buena clase!</div>
-            <h2>Clases</h2>
-            <p>Divertido.</p>
-        </div>
-        
-                  <div class="card-clase">
-            <span class="fecha">24/08</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Cansado.</p>
-        </div>
-
-                  <div class="card-clase">
-            <span class="fecha">25/08</span>
-            <div class="estado">¡Mala clase!</div>
-            <h2>Clases</h2>
-            <p>Tranqui</p>
-        </div>
-
-                  <div class="card-clase">
-            <span class="fecha">31/08</span>
-            <div class="estado">¡Nada!</div>
-            <h2>Clases</h2>
-            <p>Aburrido.</p>
-        </div>
-        
-                  <div class="card-clase">
-            <span class="fecha">1/09</span>
-            <div class="estado">¡Normal!</div>
-            <h2>Clases</h2>
-            <p>Aburrido.</p>
-        </div>
-    
-
-    
-    
-
-                
-    
     </div>
+
+    <!-- Script de Interactividad -->
+    <script>
+        const cards = document.querySelectorAll('.card-clase');
+        const searchInput = document.getElementById('searchInput');
+        const totalCount = document.getElementById('totalCount');
+        const noResults = document.getElementById('noResults');
+        let currentCategory = 'todos';
+
+        function updateStats() {
+            let visibleCount = 0;
+            cards.forEach(card => {
+                if (card.style.display !== 'none') visibleCount++;
+            });
+            totalCount.textContent = `Mostrando ${visibleCount} de ${cards.length} registros`;
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        function filterClases(category, btnElement) {
+            currentCategory = category;
+            
+            // Actualizar botones activos
+            if (btnElement) {
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+
+            cards.forEach(card => {
+                const estadoText = card.getAttribute('data-estado').toLowerCase();
+                const cardText = card.innerText.toLowerCase();
+
+                // Evaluar categoría
+                let matchesCategory = false;
+                if (currentCategory === 'todos') {
+                    matchesCategory = true;
+                } else if (currentCategory === 'excelente') {
+                    matchesCategory = estadoText.includes('excelente') || estadoText.includes('muy buena');
+                } else if (currentCategory === 'buena') {
+                    matchesCategory = estadoText.includes('buena') && !estadoText.includes('muy buena');
+                } else if (currentCategory === 'normal') {
+                    matchesCategory = estadoText.includes('normal');
+                } else if (currentCategory === 'mala') {
+                    matchesCategory = estadoText.includes('mala');
+                }
+
+                // Evaluar búsqueda de texto
+                const matchesSearch = cardText.includes(query);
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            updateStats();
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+
+        // Inicializar conteo
+        updateStats();
+    </script>
 </body>
 </html>
-
