@@ -44,6 +44,7 @@
 
         header {
             margin-bottom: 25px;
+            text-align: center;
         }
 
         h1 { 
@@ -55,18 +56,23 @@
         /* Controls: Buscador y Filtros */
         .controls {
             background: white;
-            padding: 15px 20px;
+            padding: 20px;
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.03);
             margin-bottom: 25px;
             display: flex;
             flex-direction: column;
             gap: 15px;
+            align-items: center;
+        }
+
+        .search-box {
+            width: 100%;
         }
 
         .search-box input {
             width: 100%;
-            padding: 10px 15px;
+            padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-family: inherit;
@@ -84,13 +90,14 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            justify-content: center;
         }
 
         .filter-btn {
             border: none;
             background: #eef2f7;
             color: #555;
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-family: inherit;
@@ -110,12 +117,17 @@
             font-weight: 500;
         }
 
-        /* Card Clase */
+        /* Lista y Cards */
+        #clasesList {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         .card-clase { 
             background: var(--card-bg); 
             padding: 20px 25px; 
             border-radius: 15px; 
-            margin-bottom: 15px; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.04); 
             border-left: 5px solid var(--primary); 
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -150,20 +162,19 @@
         }
 
         /* Colores dinámicos por estado */
-        .card-clase[data-estado*="Excelente"] .estado,
-        .card-clase[data-estado*="Muy buena"] .estado,
-        .card-clase[data-estado*="Muy Buena"] .estado { background: #e8f5e9; color: #2e7d32; }
+        .card-clase[data-estado*="excelente"] .estado,
+        .card-clase[data-estado*="muy buena"] .estado { background: #e8f5e9; color: #2e7d32; }
         
-        .card-clase[data-estado*="Buena"] .estado { background: #f1f8e9; color: #558b2f; }
+        .card-clase[data-estado*="buena"] .estado { background: #f1f8e9; color: #558b2f; }
         
-        .card-clase[data-estado*="Normal"] .estado { background: #e3f2fd; color: #1565c0; }
+        .card-clase[data-estado*="normal"] .estado { background: #e3f2fd; color: #1565c0; }
         
-        .card-clase[data-estado*="Mala"] .estado { background: #ffebee; color: #c62828; }
+        .card-clase[data-estado*="mala"] .estado { background: #ffebee; color: #c62828; }
         
-        .card-clase[data-estado*="Cansado"] .estado,
-        .card-clase[data-estado*="Nada"] .estado { background: #fff3e0; color: #ef6c00; }
+        .card-clase[data-estado*="cansado"] .estado,
+        .card-clase[data-estado*="nada"] .estado { background: #fff3e0; color: #ef6c00; }
 
-        .card-clase[data-estado*="Seleccion"] .estado { background: #e0f7fa; color: #00838f; }
+        .card-clase[data-estado*="seleccion"] .estado { background: #e0f7fa; color: #00838f; }
 
         h2 { 
             margin: 0 0 5px 0; 
@@ -182,6 +193,8 @@
             padding: 40px;
             color: var(--text-muted);
             display: none;
+            background: white;
+            border-radius: 12px;
         }
     </style>
 </head>
@@ -606,7 +619,7 @@
                 <p>SEMANA DEL ESRUDIANTE.</p>
             </div>
 
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Mala clase!">
                 <div class="card-header">
                     <span class="fecha">28/09</span>
                     <div class="estado">¡Mala clase!</div>
@@ -615,7 +628,7 @@
                 <p>Aburridoilo.</p>
             </div>
 
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Normal!">
                 <div class="card-header">
                     <span class="fecha">29/09</span>
                     <div class="estado">¡Normal!</div>
@@ -642,7 +655,7 @@
                 <p>Laburo.</p>
             </div>
 
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Mala clase!">
                 <div class="card-header">
                     <span class="fecha">13/10</span>
                     <div class="estado">¡Mala clase!</div>
@@ -651,7 +664,7 @@
                 <p>Aburrido.</p>
             </div>
 
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Normal!">
                 <div class="card-header">
                     <span class="fecha">19/10</span>
                     <div class="estado">¡Normal!</div>
@@ -660,7 +673,7 @@
                 <p>Trabajamos.</p>
             </div>
 
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Excelente!">
                 <div class="card-header">
                     <span class="fecha">20/10</span>
                     <div class="estado">¡Excelente!</div>
@@ -678,7 +691,7 @@
                 <p>Relajado.</p>
             </div>
 
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Mala Clase!">
                 <div class="card-header">
                     <span class="fecha">27/10</span>
                     <div class="estado">¡Mala Clase!</div>
@@ -687,7 +700,7 @@
                 <p>Aburridoo.</p>
             </div>
 
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Normal!">
                 <div class="card-header">
                     <span class="fecha">02/11</span>
                     <div class="estado">¡Normal!</div>
@@ -696,7 +709,7 @@
                 <p>Trabajo.</p>
             </div>
     
-            <div class="card-clase" data-estado="¡Buena!">
+            <div class="card-clase" data-estado="¡Normal!">
                 <div class="card-header">
                     <span class="fecha">03/11</span>
                     <div class="estado">¡Normal!</div>
@@ -705,8 +718,9 @@
                 <p>Llueve.</p>
             </div>
 
-        <div class="no-results" id="noResults">
-            No se encontraron clases que coincidan con los criterios.
+            <div class="no-results" id="noResults">
+                No se encontraron clases que coincidan con los criterios.
+            </div>
         </div>
     </div>
 
