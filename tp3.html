@@ -1,24 +1,148 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glosario - Benjamin Mollier</title>
+
     <style>
-        body { font-family: 'Poppins', sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; }
-        .btn-back { text-decoration: none; color: #0072ff; font-weight: bold; display: inline-block; margin-bottom: 20px; }
-        .termino { background: white; padding: 15px 25px; border-radius: 10px; margin-bottom: 10px; display: flex; align-items: baseline; gap: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .termino b { color: #0072ff; min-width: 100px; }
-        h1 { color: #0072ff; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .btn-back {
+            text-decoration: none;
+            color: #0072ff;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #0072ff;
+            margin-bottom: 10px;
+        }
+
+        .descripcion {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        .termino {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+            border-left: 5px solid #0072ff;
+            transition: transform 0.2s;
+        }
+
+        .termino:hover {
+            transform: translateY(-3px);
+        }
+
+        .icono {
+            font-size: 28px;
+            background: #e8f1ff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .contenido h2 {
+            color: #0072ff;
+            font-size: 19px;
+            margin: 0 0 8px;
+        }
+
+        .contenido p {
+            color: #555;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .numero {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <a href="indice.html" class="btn-back">← Volver al Índice</a>
+
+        <a href="indice.html" class="btn-back">
+            ← Volver al Índice
+        </a>
+
         <h1>Glosario de Términos</h1>
-        <p>Por ahora no necesite aprender ningun concepto. </p>
-        
+
+        <p class="descripcion">
+            Conceptos importantes relacionados con la tecnología,
+            la innovación y la electrónica.
+        </p>
+
+        <div class="termino">
+            <div class="icono">🌱</div>
+            <div class="contenido">
+                <div class="numero">TÉRMINO 01</div>
+                <h2>Agrotech</h2>
+                <p>
+                    Es la aplicación de la tecnología en la agricultura
+                    y la ganadería para mejorar la producción.
+                    Utiliza herramientas como sensores, drones y sistemas
+                    automatizados para optimizar los recursos y facilitar
+                    el trabajo en el campo.
+                </p>
+            </div>
+        </div>
+
+        <div class="termino">
+            <div class="icono">🌐</div>
+            <div class="contenido">
+                <div class="numero">TÉRMINO 02</div>
+                <h2>Internet of Things (IoT)</h2>
+                <p>
+                    También conocido como Internet de las Cosas.
+                    Es una tecnología que permite conectar objetos
+                    físicos a Internet para que puedan recopilar,
+                    enviar y recibir información. Algunos ejemplos
+                    son los relojes inteligentes, sensores y
+                    electrodomésticos conectados.
+                </p>
+            </div>
+        </div>
+
+        <div class="termino">
+            <div class="icono">🎛️</div>
+            <div class="contenido">
+                <div class="numero">TÉRMINO 03</div>
+                <h2>Potenciómetro</h2>
+                <p>
+                    Es un componente electrónico que permite variar
+                    la resistencia eléctrica de un circuito.
+                    Se utiliza, por ejemplo, para regular el volumen
+                    de un equipo de sonido, controlar la intensidad
+                    de una luz o modificar valores en proyectos
+                    con Arduino.
+                </p>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
+
